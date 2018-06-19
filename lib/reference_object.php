@@ -95,4 +95,24 @@ class reference_object {
 		}
 		throw new Exception(get_class($this).'::'.$function.'() or '.get_class($this).'::$'.$function.' not found.');
 	}
+
+	/**
+	 * @param $name
+	 * @param $arguments
+	 * @return mixed
+	 * @throws Exception
+	 */
+	public static function __callStatic($name, $arguments) {
+		$class = isset($arguments[0]['class']) ? $arguments[0]['class'] : self::class;
+		if(in_array($name, get_static_method($class))) {
+			unset($arguments[0]);
+			$tmp = [];
+			foreach ($arguments as $argument) {
+				$tmp[] = $argument;
+			}
+			$arguments = $tmp;
+			return $class::$name($arguments);
+		}
+		throw new Exception("static method {$class}::{$name}() not found");
+	}
 }

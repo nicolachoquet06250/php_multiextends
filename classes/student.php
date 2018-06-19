@@ -12,6 +12,7 @@
  */
 class student extends reference_object {
 	public $matiere_prefere;
+
 	/**
 	 * student constructor.
 	 *
