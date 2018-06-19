@@ -47,19 +47,19 @@ class Ma {
 			$student2->mon_tableau($fonction_pour_les_callback_des_tableaux);
 
 			// methode appartenant à student
-			echo "{$student->get_presentation()}\n";
+			echo "{$student->get_presentation()}\n<br>";
 
 			// __toString
-			echo "{$student}\n";
+			echo "{$student}\n<br>";
 
 			// methode appartenant à utils
-			echo "{$student->ma_premiere_fonction_dans_utils()}\n";
+			echo "{$student->ma_premiere_fonction_dans_utils()}\n<br><br>";
 
 			// méthode statique de utils appelée par student
-			echo 'lancé avec student: '.student::ma_premiere_fonction_static(['class' => 'utils'], [5, 10, 2])."\n";
+			echo 'lancé avec student: '.student::ma_premiere_fonction_static(['class' => 'utils'], [5, 10, 2])."\n<br>";
 
 			// méthode statique de utils appelée par utils
-			echo 'lancé avec utils: '.utils::ma_premiere_fonction_static([5, 10, 2])."\n\n";
+			echo 'lancé avec utils: '.utils::ma_premiere_fonction_static([5, 10, 2])."\n<br>\n<br>";
 
 			// propriété de student.
 			// La propriété récupère un array et prend en paramètre une closure et les paramètre de la closure
@@ -77,7 +77,7 @@ class Ma {
 			var_dump($student2->mon_tableau());
 
 		} catch (Exception $e) {
-			echo "{$e->getMessage()}\n";
+			echo "{$e->getMessage()}\n<br>";
 		}
 	}
 }

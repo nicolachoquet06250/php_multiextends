@@ -58,8 +58,8 @@ class student extends reference_object {
 	 * @return string
 	 */
 	public function get_presentation() {
-		return "Je m'appel {$this->mon_nom()}, j'ai {$this->age()} ans et mon langage de programmation préféré est le {$this->matiere_prefere()}.
-J'habite {$this->adresse()}.
-Appel moi au {$this->telephone()}.\n";
+		return "Je m'appel {$this->mon_nom()}, j'ai {$this->age()} ans et mon langage de programmation préféré est le {$this->matiere_prefere()}.<br>
+J'habite {$this->adresse()}.<br>
+Appel moi au {$this->telephone()}.\n<br>";
 	}
 }
