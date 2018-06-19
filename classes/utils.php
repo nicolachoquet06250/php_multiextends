@@ -1,6 +1,17 @@
 <?php
 
 class utils {
+
+	private static $instence;
+	protected function __construct() {}
+
+	public static function instence() {
+		if(self::$instence === null) {
+			self::$instence = new utils();
+		}
+		return self::$instence;
+	}
+
 	public function ma_premiere_fonction_dans_utils() {
 		return __FUNCTION__."\n";
 	}

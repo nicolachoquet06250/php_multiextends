@@ -15,6 +15,9 @@
  *
  * From utils Class
  * @method string ma_premiere_fonction_dans_utils()
+ *
+ * From class_a_etendre Class
+ * @method string property(string $property = null)
  */
 class student extends reference_object {
 	/**
@@ -25,11 +28,11 @@ class student extends reference_object {
 	public $mon_tableau = [];
 
 	/**
+	 * @param array $extends
 	 * @throws Exception
 	 */
-	public function __construct() {
-		$this->extends('user');
-		$this->extends('utils');
+	public function __construct($extends=['user', 'utils']) {
+		parent::__construct($extends);
 	}
 
 	/**

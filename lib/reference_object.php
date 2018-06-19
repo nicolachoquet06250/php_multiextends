@@ -3,26 +3,52 @@
 class reference_object {
 
 	/**
+	 * reference_object constructor.
+	 *
+	 * @param array $extends
+	 * @throws Exception
+	 */
+	public function __construct($extends = []) {
+		$this->extends($extends);
+	}
+
+	/**
 	 * @param $class
 	 * @throws Exception
 	 */
 	protected function extends($class) {
-		$class_min = strtolower($class);
-		try {
-			if(!isset($this->$class_min)) {
-				if(in_array('instence', get_class_methods($class))) {
-					$this->$class_min = $class::instence();
+		if(gettype($class) === 'string') {
+			$class_min = strtolower($class);
+			try {
+				if (!isset($this->$class_min)) {
+					if (in_array('instence', get_class_methods($class))) {
+						$this->$class_min = $class::instence();
+					}
+					else {
+						$this->$class_min = new $class();
+					}
+				}
+			} catch (Exception $e) {
+				throw new Exception($e->getMessage());
+			}
+		}
+		else if(gettype($class) === 'array') {
+			foreach ($class as $_class) {
+				$class_min = strtolower($_class);
+				try {
+					if (!isset($this->$class_min)) {
+						if (in_array('instence', get_class_methods($_class))) {
+							$this->$class_min = $_class::instence();
+						}
+						else {
+							$this->$class_min = new $_class();
+						}
+					}
+				} catch (Exception $e) {
+					throw new Exception($e->getMessage());
 				}
 			}
 		}
-		catch (Exception $e) {
-			throw new Exception($e->getMessage());
-		}
-
-		if(!isset($this->$class_min)) {
-			$this->$class_min = new $class();
-		}
-
 	}
 
 	/**
@@ -76,6 +102,7 @@ class reference_object {
 	 * @throws Exception
 	 */
 	public function __call($function, $arguments) {
+		//var_dump($this);
 		foreach ($this as $property => $value) {
 			if(gettype($value) === 'object') {
 				$object = $value;
@@ -88,6 +115,7 @@ class reference_object {
 						if($this->exists_in($key, $this->$property)) {
 							if(!empty($arguments) && $arguments[0]) {
 								if(gettype($arguments[0]) === 'object' && get_class($arguments[0]) === 'Closure') {
+									$arguments[1] = isset($arguments[1]) ? $arguments[1] : $this;
 									$this->$property->$key = $arguments[0]($arguments[1]);
 								}
 								else {
@@ -105,6 +133,7 @@ class reference_object {
 			else if($this->exists($function)) {
 				if (!empty($arguments) && $arguments[0]) {
 					if(gettype($arguments[0]) === 'object' && get_class($arguments[0]) === 'Closure') {
+						$arguments[1] = isset($arguments[1]) ? $arguments[1] : $this;
 						$this->$function = $arguments[0]($arguments[1]);
 					}
 					else {
