@@ -9,22 +9,16 @@ function get_static_method($class) {
 	return $array;
 }
 
-function __autoload($class) {
-	$exceptions = [
-		'reference_object' => [
-			'directory' => 'lib',
-			'class' => 'reference_object'
-		],
-		'Ma' => [
-			'directory' => 'classes',
-			'class' => 'Main'
-		],
-		'default' => [
-			'directory' => 'classes',
-			'class' => $class
-		]
-	];
-	$class = isset($exceptions[$class]) ? $class : 'default';
-		$class = "{$exceptions[$class]['directory']}/{$exceptions[$class]['class']}";
-	require_once "{$class}.php";
+$dir = opendir('lib');
+while (($file = readdir($dir)) !== false) {
+	if($file !== '.' && $file !== '..') {
+		require_once "lib/{$file}";
+	}
+}
+
+$dir = opendir('classes');
+while (($file = readdir($dir)) !== false) {
+	if($file !== '.' && $file !== '..') {
+		require_once "classes/{$file}";
+	}
 }
