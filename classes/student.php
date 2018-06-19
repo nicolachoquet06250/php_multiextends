@@ -27,6 +27,11 @@ class student extends reference_object {
 	public $matiere_prefere;
 	public $mon_tableau = [];
 
+	public static function ma_premiere_fonction_static($array, $array2) {
+		$function = __FUNCTION__;
+		return $array['class']::$function($array2);
+	}
+
 	/**
 	 * @param array $extends
 	 * @throws Exception

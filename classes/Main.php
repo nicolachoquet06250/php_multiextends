@@ -56,10 +56,10 @@ class Ma {
 			echo "{$student->ma_premiere_fonction_dans_utils()}\n";
 
 			// méthode statique de utils appelée par student
-			echo student::ma_premiere_fonction_static(['class' => 'utils'], 5, 10, 2)."\n";
+			echo 'lancé avec student: '.student::ma_premiere_fonction_static(['class' => 'utils'], [5, 10, 2])."\n";
 
 			// méthode statique de utils appelée par utils
-			echo utils::ma_premiere_fonction_static([5, 10, 2])."\n\n";
+			echo 'lancé avec utils: '.utils::ma_premiere_fonction_static([5, 10, 2])."\n\n";
 
 			// propriété de student.
 			// La propriété récupère un array et prend en paramètre une closure et les paramètre de la closure
