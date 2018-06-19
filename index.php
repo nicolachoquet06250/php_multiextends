@@ -5,8 +5,16 @@ require_once 'autoload.php';
 try {
 	$obj = new student();
 
-	var_dump($obj->nom('Choquet'));
-	var_dump($obj->ma_nom());
+	$obj->nom('Choquet');
+	$obj->prenom('Nicolas');
+	$obj->matiere_prefere('PHP');
+
+	$nom_complet = $obj->mon_nom();
+	$ma_matiere_prefere = $obj->matiere_prefere();
+
+	echo $obj->get_presentation();
+	echo $obj->ma_premiere_fonction_dans_utils();
+
 } catch (Exception $e) {
-	var_dump($e->getMessage());
+	echo "{$e->getMessage()}\n";
 }

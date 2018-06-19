@@ -1,8 +1,16 @@
 <?php
 
-class user {
+class user extends reference_object {
+
+	public $prenom;
+	public $nom;
+	public $age;
+	public $adresse;
+	public $telephone;
+
+
 	private static $instence;
-	private function __construct() {
+	protected function __construct() {
 
 	}
 
@@ -12,10 +20,4 @@ class user {
 		}
 		return self::$instence;
 	}
-
-	public $prenom;
-	public $nom = '';
-	public $age;
-	public $adresse;
-	public $telephone;
 }
