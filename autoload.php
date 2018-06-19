@@ -10,6 +10,21 @@ function get_static_method($class) {
 }
 
 function __autoload($class) {
-	$class = $class === 'reference_object' ? "lib/{$class}" : "classes/{$class}";
+	$exceptions = [
+		'reference_object' => [
+			'directory' => 'lib',
+			'class' => 'reference_object'
+		],
+		'Ma' => [
+			'directory' => 'classes',
+			'class' => 'Main'
+		],
+		'default' => [
+			'directory' => 'classes',
+			'class' => $class
+		]
+	];
+	$class = isset($exceptions[$class]) ? $class : 'default';
+		$class = "{$exceptions[$class]['directory']}/{$exceptions[$class]['class']}";
 	require_once "{$class}.php";
 }
