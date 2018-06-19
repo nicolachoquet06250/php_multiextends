@@ -8,10 +8,12 @@
  * @method string adresse(string $adresse = null)
  * @method string telephone(string $telephone = null)
  * @method string matiere_prefere(string $matiere_prefere = null)
+ * @method array mon_tableau(array|Closure $mon_tableau = null, array|string|integer|null $params = null)
  * @method string ma_premiere_fonction_dans_utils()
  */
 class student extends reference_object {
 	public $matiere_prefere;
+	public $mon_tableau = [];
 
 	/**
 	 * student constructor.

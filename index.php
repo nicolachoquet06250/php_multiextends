@@ -15,6 +15,12 @@ try {
 
 	// propriété de student
 	$student->matiere_prefere('PHP');
+	$student->mon_tableau(
+		[
+			'voila' => 'ma premiere ligne',
+			'puis' => 'ma seconde ligne'
+		]
+	);
 
 	// methode appartenant à student
 	echo "{$student->get_presentation()}\n";
@@ -26,7 +32,18 @@ try {
 	echo student::ma_premiere_fonction_static(['class' => 'utils'], 5, 10, 2)."\n";
 
 	// méthode statique de utils appelée par utils
-	echo utils::ma_premiere_fonction_static([5, 10, 2])."\n";
+	echo utils::ma_premiere_fonction_static([5, 10, 2])."\n\n";
+
+	// propriété de student.
+	// La propriété récupère un array et prend en paramètre une closure et les paramètre de la closure
+	$student->mon_tableau(function (student $student) {
+		$array = $student->mon_tableau();
+		$array['test'] = 'avec un nouveau tableau';
+		return $array;
+	}, $student);
+
+	// propriété de student.
+	var_dump($student->mon_tableau());
 
 } catch (Exception $e) {
 	echo "{$e->getMessage()}\n";

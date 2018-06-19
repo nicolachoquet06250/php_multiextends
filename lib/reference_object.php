@@ -25,6 +25,11 @@ class reference_object {
 
 	}
 
+	/**
+	 * @param  string $var
+	 * @param  string $type
+	 * @return bool
+	 */
 	protected function exists($var, $type = 'var'): bool {
 		switch ($type) {
 			case 'method':
@@ -41,6 +46,12 @@ class reference_object {
 		}
 	}
 
+	/**
+	 * @param  string $var
+	 * @param  object $in
+	 * @param  string $type
+	 * @return bool
+	 */
 	protected function exists_in($var, $in, $type = 'var'): bool {
 		switch ($type) {
 			case 'method':
@@ -59,9 +70,9 @@ class reference_object {
 	}
 
 	/**
-	 * @param $function
-	 * @param $arguments
-	 * @return mixed
+	 * @param string $function
+	 * @param array $arguments
+	 * @return string|integer|array|null
 	 * @throws Exception
 	 */
 	public function __call($function, $arguments) {
@@ -76,7 +87,12 @@ class reference_object {
 					if($key === $function) {
 						if($this->exists_in($key, $this->$property)) {
 							if(!empty($arguments) && $arguments[0]) {
-								$this->$property->$key = $arguments[0];
+								if(gettype($arguments[0]) === 'object' && get_class($arguments[0]) === 'Closure') {
+									$this->$property->$key = $arguments[0]($arguments[1]);
+								}
+								else {
+									$this->$property->$key = $arguments[0];
+								}
 							}
 							return $this->$property->$key;
 						}
@@ -88,7 +104,12 @@ class reference_object {
 			}
 			else if($this->exists($function)) {
 				if (!empty($arguments) && $arguments[0]) {
-					$this->$function = $arguments[0];
+					if(gettype($arguments[0]) === 'object' && get_class($arguments[0]) === 'Closure') {
+						$this->$function = $arguments[0]($arguments[1]);
+					}
+					else {
+						$this->$function = $arguments[0];
+					}
 				}
 				return $this->$function;
 			}
