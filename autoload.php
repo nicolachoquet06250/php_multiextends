@@ -9,16 +9,9 @@ function get_static_method($class) {
 	return $array;
 }
 
-$dir = opendir('lib');
+$dir = opendir(__DIR__.'/lib');
 while (($file = readdir($dir)) !== false) {
 	if($file !== '.' && $file !== '..') {
-		require_once "lib/{$file}";
-	}
-}
-
-$dir = opendir('classes');
-while (($file = readdir($dir)) !== false) {
-	if($file !== '.' && $file !== '..') {
-		require_once "classes/{$file}";
+		require_once __DIR__."/lib/{$file}";
 	}
 }
